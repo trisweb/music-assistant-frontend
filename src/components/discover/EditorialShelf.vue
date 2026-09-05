@@ -58,23 +58,6 @@
         <slot></slot>
       </div>
 
-      <div
-        class="ed-shelf__overflow-fade ed-shelf__overflow-fade--left"
-        :style="{
-          opacity: leftEdgeOpacity,
-          visibility: leftEdgeOpacity > 0 ? 'visible' : 'hidden',
-        }"
-        aria-hidden="true"
-      ></div>
-      <div
-        class="ed-shelf__overflow-fade ed-shelf__overflow-fade--right"
-        :style="{
-          opacity: rightEdgeOpacity,
-          visibility: rightEdgeOpacity > 0 ? 'visible' : 'hidden',
-        }"
-        aria-hidden="true"
-      ></div>
-
       <!-- next -->
       <button
         class="ed-shelf__nav ed-shelf__nav--right"
@@ -360,21 +343,6 @@ onBeforeUnmount(() => {
   overflow-anchor: none;
   scroll-padding-left: calc(var(--ed-gutter) - var(--ed-card-pad));
   scroll-padding-right: var(--ed-gutter);
-}
-.ed-shelf__overflow-fade {
-  position: absolute;
-  inset-block: 0;
-  z-index: 2;
-  width: clamp(24px, 3.75vw, 48px);
-  pointer-events: none;
-}
-.ed-shelf__overflow-fade--left {
-  left: 0;
-  background: linear-gradient(to right, var(--background), transparent);
-}
-.ed-shelf__overflow-fade--right {
-  right: 0;
-  background: linear-gradient(to right, transparent, var(--background));
 }
 .ma-scroll {
   scrollbar-width: none;

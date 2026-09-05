@@ -1053,6 +1053,7 @@ onBeforeUnmount(() => {
 }
 
 .ed-players {
+  --ed-card-pad: 0px;
   margin-top: 4px;
 }
 .ed-players :deep(.ed-shelf__track) {

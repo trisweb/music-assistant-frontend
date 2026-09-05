@@ -3,7 +3,7 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, it, vi } from "vitest";
 
 describe("EditorialShelf", () => {
-  it("fades each edge only while more content exists in that direction", async () => {
+  it("shows navigation only while more content exists in that direction", async () => {
     const wrapper = mount(EditorialShelf, {
       global: {
         mocks: {
@@ -21,14 +21,14 @@ describe("EditorialShelf", () => {
       scrollLeft: { configurable: true, value: 0, writable: true },
     });
     await track.trigger("scroll");
+    await wrapper.get(".ed-shelf").trigger("mouseenter");
 
-    const leftFade = wrapper.get(".ed-shelf__overflow-fade--left");
-    const rightFade = wrapper.get(".ed-shelf__overflow-fade--right");
-    expect(leftFade.attributes("style")).toContain("visibility: hidden");
-    expect(leftFade.attributes("style")).toContain("opacity: 0");
-    expect(rightFade.isVisible()).toBe(true);
-    expect(rightFade.attributes("style")).toContain("opacity: 1");
-    expect(rightFade.attributes("aria-hidden")).toBe("true");
+    const leftNav = wrapper.get(".ed-shelf__nav--left");
+    const rightNav = wrapper.get(".ed-shelf__nav--right");
+    expect(leftNav.attributes("style")).toContain("visibility: hidden");
+    expect(leftNav.attributes("style")).toContain("opacity: 0");
+    expect(rightNav.isVisible()).toBe(true);
+    expect(rightNav.attributes("style")).toContain("opacity: 1");
 
     Object.defineProperty(track.element, "scrollLeft", {
       configurable: true,
@@ -36,13 +36,9 @@ describe("EditorialShelf", () => {
     });
     await track.trigger("scroll");
 
-    expect(leftFade.isVisible()).toBe(true);
-    expect(leftFade.attributes("style")).toContain("opacity: 0.5");
-    expect(rightFade.isVisible()).toBe(true);
-    await wrapper.get(".ed-shelf").trigger("mouseenter");
-    expect(wrapper.get(".ed-shelf__nav--left").attributes("style")).toContain(
-      "opacity: 0.5",
-    );
+    expect(leftNav.isVisible()).toBe(true);
+    expect(leftNav.attributes("style")).toContain("opacity: 0.5");
+    expect(rightNav.isVisible()).toBe(true);
 
     Object.defineProperty(track.element, "scrollLeft", {
       configurable: true,
@@ -50,8 +46,8 @@ describe("EditorialShelf", () => {
     });
     await track.trigger("scroll");
 
-    expect(leftFade.isVisible()).toBe(true);
-    expect(rightFade.attributes("style")).toContain("opacity: 0.5");
+    expect(leftNav.isVisible()).toBe(true);
+    expect(rightNav.attributes("style")).toContain("opacity: 0.5");
 
     Object.defineProperty(track.element, "scrollLeft", {
       configurable: true,
@@ -59,8 +55,8 @@ describe("EditorialShelf", () => {
     });
     await track.trigger("scroll");
 
-    expect(rightFade.attributes("style")).toContain("visibility: hidden");
-    expect(rightFade.attributes("style")).toContain("opacity: 0");
+    expect(rightNav.attributes("style")).toContain("visibility: hidden");
+    expect(rightNav.attributes("style")).toContain("opacity: 0");
   });
 
   it("scrolls an overflowing shelf with its navigation control", async () => {
