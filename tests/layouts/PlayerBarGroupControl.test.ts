@@ -82,6 +82,7 @@ describe("PlayerBarGroupControl", () => {
       "tooltip.group_members: 2 players",
     );
     expect(trigger.get(".player-bar-action-label").text()).toBe("2 players");
+    expect(trigger.attributes("data-grouped")).toBe("true");
     expect(wrapper!.findComponent(Copy).exists()).toBe(true);
     expect(wrapper!.findComponent(CircleFadingPlus).exists()).toBe(false);
     const count = trigger.get("[data-player-group-count]");
@@ -125,6 +126,7 @@ describe("PlayerBarGroupControl", () => {
     expect(trigger.get(".player-bar-action-label").text()).toBe(
       "player_type.group",
     );
+    expect(trigger.attributes("data-grouped")).toBe("false");
     expect(wrapper!.findComponent(CircleFadingPlus).exists()).toBe(true);
     expect(wrapper!.findComponent(Copy).exists()).toBe(false);
     expect(trigger.find("[data-player-group-count]").exists()).toBe(false);

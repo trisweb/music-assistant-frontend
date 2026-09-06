@@ -36,6 +36,7 @@
               : 'player-bar-action player-bar-group-button h-20 w-[72px]',
           ]"
           :data-active="open"
+          :data-grouped="isGrouped"
           :data-suppress-hover="suppressHover"
           :aria-label="groupMembersLabel"
           @pointerenter="onPointerEnter"
